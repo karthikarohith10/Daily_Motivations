@@ -1,0 +1,27 @@
+name: Daily Motivation
+
+on:
+  schedule:
+    # Runs every day at 10:45 PM IST (5:15 PM UTC)
+    - cron: '15 17 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run Python Script
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+        run: python main.py
