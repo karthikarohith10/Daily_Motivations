@@ -1,12 +1,13 @@
 import smtplib
 import random
+import os
 
 with open("quotes.txt") as file:
     new_list = file.readlines()
     random_quote = random.choice(new_list)
 
-my_email = ""
-password = ""
+my_email = os.environ["EMAIL"]
+password = os.environ["PASSWORD"]
 
 with smtplib.SMTP("smtp.gmail.com",587) as connection:
     connection.starttls()
